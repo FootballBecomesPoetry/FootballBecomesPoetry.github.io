@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 <html lang="en">
@@ -116,7 +115,7 @@ function renderHome() {
 
   return `
   <nav>
-    <a href="#home" class="nav-logo">When Football Becomes<br><span>Poetry</span></a>
+    <a href="#home" class="nav-logo">Football Becomes<br><span>Poetry</span></a>
     <ul class="nav-links">
       <li><a href="#about" onclick="navigate('home');setTimeout(()=>document.getElementById('about')?.scrollIntoView({behavior:'smooth'}),120);return false;">About</a></li>
       <li><a href="#category/poetic">Poetic Expressions</a></li>
@@ -127,7 +126,7 @@ function renderHome() {
 
   <section class="hero" id="home">
     <div class="hero-pitch-lines">
-      <svg viewBox="0 0 500 800" preserveAspectRatio="none" fill="none" stroke="#0e0c0a" stroke-width="1.5">
+      <svg viewBox="0 0 500 800" preserveAspectRatio="none" fill="none" stroke="#b8955a" stroke-width="1.5">
         <rect x="20" y="20" width="460" height="760"/>
         <line x1="20" y1="400" x2="480" y2="400"/>
         <circle cx="250" cy="400" r="80"/>
@@ -346,7 +345,7 @@ function renderPost(slug) {
 function renderNav() {
   return `
   <nav>
-    <a href="#home" class="nav-logo">When Football Becomes<br><span>Poetry</span></a>
+    <a href="#home" class="nav-logo">Football Becomes<br><span>Poetry</span></a>
     <ul class="nav-links">
       <li><a href="#home">Home</a></li>
       <li><a href="#category/poetic">Poetic Expressions</a></li>
@@ -393,10 +392,10 @@ window.addEventListener('DOMContentLoaded', render);
     --rule: rgba(14,12,10,0.12);
   }
 
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; background: #0e0c0a; }
   body {
-    background: var(--paper);
-    color: var(--ink);
+    background: #0e0c0a;
+    color: #f5f0e8;
     font-family: 'Libre Baskerville', Georgia, serif;
     overflow-x: hidden;
   }
@@ -406,13 +405,13 @@ window.addEventListener('DOMContentLoaded', render);
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
     padding: 1.2rem 3rem;
-    background: var(--paper);
-    border-bottom: 1px solid var(--rule);
+    background: #0e0c0a;
+    border-bottom: 1px solid rgba(184,149,90,0.15);
   }
   .nav-logo {
     font-family: 'Playfair Display', serif;
     font-style: italic; font-size: 1.1rem; font-weight: 700;
-    color: var(--ink); text-decoration: none;
+    color: #f5f0e8; text-decoration: none;
     letter-spacing: -0.01em; line-height: 1.2;
   }
   .nav-logo span { color: var(--gold); }
@@ -420,26 +419,27 @@ window.addEventListener('DOMContentLoaded', render);
   .nav-links a {
     font-family: 'DM Mono', monospace; font-size: 0.72rem;
     letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--muted); text-decoration: none; transition: color 0.2s;
+    color: rgba(245,240,232,0.45); text-decoration: none; transition: color 0.2s;
   }
-  .nav-links a:hover { color: var(--ink); }
+  .nav-links a:hover { color: var(--gold-light); }
 
   /* HERO */
   .hero {
     min-height: 100vh; display: grid;
     grid-template-columns: 1fr 1fr;
     padding-top: 5rem; position: relative; overflow: hidden;
+    background: #0e0c0a;
   }
   .hero::before {
     content: ''; position: absolute; inset: 0;
     background:
-      radial-gradient(ellipse at 70% 30%, rgba(184,149,90,0.08) 0%, transparent 60%),
-      radial-gradient(ellipse at 20% 80%, rgba(26,58,42,0.06) 0%, transparent 50%);
+      radial-gradient(ellipse at 70% 30%, rgba(184,149,90,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 20% 80%, rgba(184,149,90,0.04) 0%, transparent 50%);
     pointer-events: none;
   }
   .hero-pitch-lines {
     position: absolute; right: 0; top: 0; bottom: 0; width: 50%;
-    opacity: 0.04; pointer-events: none;
+    opacity: 0.12; pointer-events: none;
   }
   .hero-pitch-lines svg { width: 100%; height: 100%; }
   .hero-left {
@@ -456,6 +456,7 @@ window.addEventListener('DOMContentLoaded', render);
     font-family: 'Playfair Display', serif;
     font-size: clamp(3rem, 5vw, 5.5rem); font-weight: 900;
     line-height: 1.02; letter-spacing: -0.03em; margin-bottom: 1rem;
+    color: #f5f0e8;
     animation: fadeUp 0.9s 0.35s ease both;
   }
   .hero-title em { font-style: italic; color: var(--gold); display: block; }
@@ -464,7 +465,7 @@ window.addEventListener('DOMContentLoaded', render);
     animation: fadeUp 0.9s 0.5s ease both;
   }
   .hero-desc {
-    font-size: 1.05rem; line-height: 1.75; color: #5a4f42;
+    font-size: 1.05rem; line-height: 1.75; color: rgba(245,240,232,0.65);
     max-width: 38ch; animation: fadeUp 0.9s 0.65s ease both;
   }
   .hero-cta {
@@ -473,38 +474,39 @@ window.addEventListener('DOMContentLoaded', render);
   }
   .btn-primary {
     display: inline-flex; align-items: center; gap: 0.5rem;
-    background: var(--ink); color: var(--paper);
+    background: var(--gold); color: #0e0c0a;
     padding: 0.85rem 1.8rem; font-family: 'DM Mono', monospace;
     font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
     text-decoration: none; transition: background 0.2s, transform 0.15s; border: none; cursor: pointer;
+    font-weight: 700;
   }
-  .btn-primary:hover { background: var(--grass); transform: translateY(-1px); }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
   .btn-secondary {
     display: inline-flex; align-items: center; gap: 0.5rem;
-    border: 1px solid var(--ink); color: var(--ink);
+    border: 1px solid rgba(245,240,232,0.3); color: #f5f0e8;
     padding: 0.85rem 1.8rem; font-family: 'DM Mono', monospace;
     font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
-    text-decoration: none; transition: background 0.2s;
+    text-decoration: none; transition: background 0.2s, border-color 0.2s;
   }
-  .btn-secondary:hover { background: var(--cream); }
+  .btn-secondary:hover { background: rgba(255,255,255,0.06); border-color: rgba(245,240,232,0.6); }
   .hero-right {
     display: flex; align-items: center; justify-content: center;
     padding: 4rem 3rem; position: relative;
     animation: fadeIn 1.2s 0.4s ease both;
   }
   .hero-quote-card {
-    background: var(--ink); color: var(--paper);
-    padding: 3rem; max-width: 420px; position: relative;
+    background: rgba(184,149,90,0.08); border: 1px solid rgba(184,149,90,0.25);
+    color: #f5f0e8; padding: 3rem; max-width: 420px; position: relative;
   }
   .hero-quote-card::before {
     content: '\201C'; font-family: 'Playfair Display', serif;
-    font-size: 8rem; line-height: 0.7; color: var(--gold); opacity: 0.3;
+    font-size: 8rem; line-height: 0.7; color: var(--gold); opacity: 0.25;
     position: absolute; top: 1.5rem; left: 1.5rem;
   }
   .hero-quote-text {
     font-family: 'Playfair Display', serif; font-style: italic;
     font-size: 1.25rem; line-height: 1.65;
-    position: relative; z-index: 1; margin-bottom: 1.5rem;
+    position: relative; z-index: 1; margin-bottom: 1.5rem; color: #f5f0e8;
   }
   .hero-quote-meta {
     font-family: 'DM Mono', monospace; font-size: 0.68rem;
@@ -513,7 +515,7 @@ window.addEventListener('DOMContentLoaded', render);
   .hero-scroll-hint {
     position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
     font-family: 'DM Mono', monospace; font-size: 0.65rem;
-    letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
+    letter-spacing: 0.15em; text-transform: uppercase; color: rgba(245,240,232,0.3);
     display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
     animation: fadeUp 1s 1.2s ease both;
   }
