@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>When Football Becomes Poetry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0e0c0a;
+    --paper: #f5f0e8;
+    --cream: #ede7d5;
+    --gold: #b8955a;
+    --gold-light: #d4b07a;
+    --grass: #1a3a2a;
+    --muted: #7a7060;
+    --rule: rgba(14,12,10,0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Libre Baskerville', Georgia, serif;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    backdrop-filter: blur(8px);
+    animation: fadeDown 0.8s ease both;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 70% 30%, rgba(184,149,90,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 20% 80%, rgba(26,58,42,0.06) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .hero-pitch-lines {
+    position: absolute; right: 0; top: 0; bottom: 0; width: 50%;
+    opacity: 0.04;
+    pointer-events: none;
+  }
+  .hero-pitch-lines svg { width: 100%; height: 100%; }
+
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 4rem 3rem 4rem 4rem;
+    position: relative; z-index: 1;
+  }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.9s 0.2s ease both;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+    animation: fadeUp 0.9s 0.35s ease both;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+    display: block;
+  }
+  .hero-divider {
+    width: 3rem; height: 2px;
+    background: var(--gold);
+    margin: 1.8rem 0;
+    animation: fadeUp 0.9s 0.5s ease both;
+  }
+  .hero-desc {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: #3a3530;
+    max-width: 36ch;
+    animation: fadeUp 0.9s 0.65s ease both;
+  }
+  .hero-cta {
+    display: flex; gap: 1rem; margin-top: 2.5rem;
+    animation: fadeUp 0.9s 0.8s ease both;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 0.85rem 1.8rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--grass); transform: translateY(-1px); }
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    padding: 0.85rem 1.8rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .btn-secondary:hover { background: var(--cream); }
+
+  .hero-right {
+    display: flex; align-items: center; justify-content: center;
+    padding: 4rem 3rem;
+    position: relative;
+    animation: fadeIn 1.2s 0.4s ease both;
+  }
+  .hero-quote-card {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 3rem;
+    max-width: 420px;
+    position: relative;
+  }
+  .hero-quote-card::before {
+    content: '\201C';
+    font-family: 'Playfair Display', serif;
+    font-size: 8rem;
+    line-height: 0.7;
+    color: var(--gold);
+    opacity: 0.3;
+    position: absolute;
+    top: 1.5rem; left: 1.5rem;
+  }
+  .hero-quote-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.25rem;
+    line-height: 1.65;
+    position: relative; z-index: 1;
+    margin-bottom: 1.5rem;
+  }
+  .hero-quote-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+  }
+  .hero-scroll-hint {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    animation: fadeUp 1s 1.2s ease both;
+  }
+  .scroll-line {
+    width: 1px; height: 2rem;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s infinite;
+  }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    background: var(--grass);
+    color: var(--gold-light);
+    padding: 0.9rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .marquee-track {
+    display: inline-flex; gap: 0;
+    animation: marquee 30s linear infinite;
+  }
+  .marquee-item {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0 2.5rem;
+  }
+  .marquee-item::after {
+    content: '\25C6';
+    margin-left: 2.5rem;
+    color: var(--gold);
+    opacity: 0.5;
+  }
+
+  /* SECTION COMMON */
+  section { padding: 6rem 4rem; }
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .section-rule {
+    width: 2.5rem; height: 2px;
+    background: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+
+  /* CATEGORIES */
+  .categories { background: var(--cream); }
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .cat-card {
+    background: var(--paper);
+    padding: 2.5rem 2rem;
+    border-bottom: 3px solid transparent;
+    transition: border-color 0.25s, transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .cat-card::before {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+    background: var(--gold);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  .cat-card:hover::before { transform: scaleX(1); }
+  .cat-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+  .cat-icon { font-size: 2rem; margin-bottom: 1.2rem; }
+  .cat-num {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--rule);
+    position: absolute;
+    top: 1rem; right: 1.5rem;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .cat-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+  }
+  .cat-desc {
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: var(--muted);
+  }
+  .cat-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    margin-top: 1.5rem;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 1px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .cat-link:hover { color: var(--gold); border-color: var(--gold); }
+
+  /* ABOUT */
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .about-photo { position: relative; }
+  .about-photo-frame {
+    background: var(--ink);
+    aspect-ratio: 3/4;
+    max-width: 380px;
+    position: relative;
+    overflow: hidden;
+  }
+  .about-photo-frame::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.6));
+  }
+  .about-photo-placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, var(--grass) 0%, #0a1f15 100%);
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 5rem;
+    color: rgba(184,149,90,0.3);
+  }
+  .about-photo-offset {
+    position: absolute;
+    bottom: -1.5rem; right: -1.5rem;
+    width: 60%; height: 40%;
+    border: 2px solid var(--gold);
+    pointer-events: none;
+  }
+  .about-text p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #3a3530;
+    margin-bottom: 1.2rem;
+  }
+  .about-stats {
+    display: flex; gap: 2.5rem; margin: 2rem 0;
+    padding: 2rem 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .stat-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--ink);
+  }
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* FEATURED POSTS */
+  .featured { background: var(--ink); color: var(--paper); }
+  .featured .section-title { color: var(--paper); }
+  .featured .section-rule { background: var(--gold); }
+  .featured-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .post-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    padding: 2rem;
+    transition: background 0.25s;
+    cursor: pointer;
+  }
+  .post-card:hover { background: rgba(255,255,255,0.08); }
+  .post-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 1rem;
+  }
+  .post-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 0.8rem;
+  }
+  .post-card.large .post-title { font-size: 1.5rem; }
+  .post-card:not(.large) .post-title { font-size: 1.1rem; }
+  .post-excerpt {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: rgba(245,240,232,0.6);
+    margin-bottom: 1.2rem;
+  }
+  .post-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    color: rgba(245,240,232,0.35);
+  }
+
+  /* NEWSLETTER */
+  .newsletter {
+    background: var(--gold);
+    color: var(--ink);
+    text-align: center;
+    padding: 5rem 4rem;
+  }
+  .newsletter .section-label { color: var(--ink); opacity: 0.6; }
+  .newsletter .section-title { color: var(--ink); }
+  .newsletter p {
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: 48ch;
+    margin: 0 auto 2.5rem;
+    color: rgba(14,12,10,0.75);
+  }
+  .newsletter-form {
+    display: flex; gap: 0; max-width: 440px; margin: 0 auto;
+  }
+  .newsletter-form input {
+    flex: 1;
+    padding: 0.9rem 1.2rem;
+    border: 2px solid var(--ink);
+    background: transparent;
+    font-family: 'Libre Baskerville', serif;
+    font-size: 0.9rem;
+    color: var(--ink);
+    outline: none;
+  }
+  .newsletter-form input::placeholder { color: rgba(14,12,10,0.45); }
+  .newsletter-form button {
+    padding: 0.9rem 1.5rem;
+    background: var(--ink);
+    color: var(--paper);
+    border: 2px solid var(--ink);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .newsletter-form button:hover { background: var(--grass); border-color: var(--grass); }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    color: rgba(245,240,232,0.5);
+    padding: 3rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--paper);
+  }
+  .footer-logo span { color: var(--gold); }
+  footer p {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+  }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.45);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--gold-light); }
+
+  /* ANIMATIONS */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 1; transform: scaleY(1); }
+    50%       { opacity: 0.4; transform: scaleY(0.6); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 6rem 1.5rem 3rem; }
+    .hero-right { padding: 2rem 1.5rem 4rem; }
+    .hero-quote-card { max-width: 100%; }
+    section { padding: 4rem 1.5rem; }
+    .categories-grid { grid-template-columns: 1fr; }
+    .about { grid-template-columns: 1fr; gap: 2.5rem; }
+    .about-photo-frame { max-width: 100%; aspect-ratio: 4/3; }
+    .featured-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    .newsletter-form { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">When Football Becomes<br><span>Poetry</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#stories">Stories</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-pitch-lines">
+    <svg viewBox="0 0 500 800" preserveAspectRatio="none" fill="none" stroke="#0e0c0a" stroke-width="1.5">
+      <rect x="20" y="20" width="460" height="760"/>
+      <line x1="20" y1="400" x2="480" y2="400"/>
+      <circle cx="250" cy="400" r="80"/>
+      <rect x="160" y="20" width="180" height="80"/>
+      <rect x="160" y="700" width="180" height="80"/>
+      <rect x="200" y="20" width="100" height="40"/>
+      <rect x="200" y="740" width="100" height="40"/>
+    </svg>
+  </div>
+
+  <div class="hero-left">
+    <p class="hero-eyebrow">Est. 2024 &middot; Creative Football Writing</p>
+    <h1 class="hero-title">
+      When Football<br>Becomes
+      <em>Poetry</em>
+    </h1>
+    <div class="hero-divider"></div>
+    <p class="hero-desc">Football is more than a sport. It is stories, emotions and moments that words were made to hold. This is where the beautiful game becomes literature.</p>
+    <div class="hero-cta">
+      <a href="#stories" class="btn-primary">Read the Blog &rarr;</a>
+      <a href="#about" class="btn-secondary">About Me</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-quote-card">
+      <p class="hero-quote-text">
+        "Some days the pitch is a stage, the players become characters in a story only football can tell and all you can do is watch, breathless."
+      </p>
+      <p class="hero-quote-meta">When Football Becomes Poetry</p>
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Poetic Expressions</span>
+    <span class="marquee-item">Match Day Blogs</span>
+    <span class="marquee-item">Rising Stars</span>
+    <span class="marquee-item">The Beautiful Game</span>
+    <span class="marquee-item">Chelsea FC</span>
+    <span class="marquee-item">Creative Writing</span>
+    <span class="marquee-item">Football Stories</span>
+    <span class="marquee-item">Poetic Expressions</span>
+    <span class="marquee-item">Match Day Blogs</span>
+    <span class="marquee-item">Rising Stars</span>
+    <span class="marquee-item">The Beautiful Game</span>
+    <span class="marquee-item">Chelsea FC</span>
+    <span class="marquee-item">Creative Writing</span>
+    <span class="marquee-item">Football Stories</span>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<section class="categories" id="stories">
+  <p class="section-label">Explore</p>
+  <h2 class="section-title">Our Stories</h2>
+  <div class="section-rule"></div>
+
+  <div class="categories-grid">
+    <div class="cat-card">
+      <div class="cat-num">01</div>
+      <div class="cat-icon">&#9997;&#65039;</div>
+      <h3 class="cat-title">Poetic Expressions</h3>
+      <p class="cat-desc">Beautifully crafted poetry and verse inspired by the moments, players and emotions that define football at its most sublime.</p>
+      <a href="#" class="cat-link">Read Poems &rarr;</a>
+    </div>
+    <div class="cat-card">
+      <div class="cat-num">02</div>
+      <div class="cat-icon">&#128203;</div>
+      <h3 class="cat-title">General Pieces</h3>
+      <p class="cat-desc">Matchday blogs and essays that bring the drama and excitement of the week's fixtures to life through considered, creative prose.</p>
+      <a href="#" class="cat-link">Read Pieces &rarr;</a>
+    </div>
+    <div class="cat-card">
+      <div class="cat-num">03</div>
+      <div class="cat-icon">&#9889;</div>
+      <h3 class="cat-title">Rising Stars</h3>
+      <p class="cat-desc">Profiles of the next generation: the rising talents and future icons expected to shape the beautiful game for years to come.</p>
+      <a href="#" class="cat-link">Meet the Stars &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED POSTS -->
+<section class="featured" id="blog">
+  <p class="section-label">Latest</p>
+  <h2 class="section-title">Recent Writing</h2>
+  <div class="section-rule"></div>
+
+  <div class="featured-grid">
+    <div class="post-card large">
+      <p class="post-tag">Poetic Expressions</p>
+      <h3 class="post-title">The Last Whistle: A Poem on Endings and Eternity in Football</h3>
+      <p class="post-excerpt">There is something uniquely final about a referee's whistle at the death. The moment an entire season of effort crystallises into a single, irreversible truth.</p>
+      <p class="post-meta">Latest Post &middot; Poetic Expression</p>
+    </div>
+    <div class="post-card">
+      <p class="post-tag">Rising Stars</p>
+      <h3 class="post-title">The Next Great No. 10: Who Carries the Weight of Creativity Now?</h3>
+      <p class="post-excerpt">With the classic playmaker becoming rarer, who steps into the void?</p>
+      <p class="post-meta">Rising Stars &middot; Profile</p>
+    </div>
+    <div class="post-card">
+      <p class="post-tag">General</p>
+      <h3 class="post-title">Match Day Diary: When the Stadium Becomes a Cathedral</h3>
+      <p class="post-excerpt">Walking into a ground on match day is a ritual unlike anything else in sport.</p>
+      <p class="post-meta">Match Day Blog</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about">
+    <div class="about-photo">
+      <div class="about-photo-frame">
+        <div class="about-photo-placeholder">N</div>
+      </div>
+      <div class="about-photo-offset"></div>
+    </div>
+    <div class="about-text">
+      <p class="section-label">The Author</p>
+      <h2 class="section-title">About Me</h2>
+      <div class="section-rule"></div>
+      <p>Football has always been at the heart of my life. Growing up, I have experienced the highs and lows the game brings but always been captivated by the drama, skill and emotion that comes with it.</p>
+      <p>My love for football stretches far beyond the Premier League. It has led me to the most obscure games at the most obscure hours, and I would not have it any other way.</p>
+      <p>Alongside football, I have always been drawn to creative writing. There is something magical about turning feelings and experiences into words. Combining both felt completely natural.</p>
+      <div class="about-stats">
+        <div>
+          <div class="stat-val">3</div>
+          <div class="stat-label">Categories</div>
+        </div>
+        <div>
+          <div class="stat-val">&infin;</div>
+          <div class="stat-label">Passion</div>
+        </div>
+        <div>
+          <div class="stat-val">1</div>
+          <div class="stat-label">Club</div>
+        </div>
+      </div>
+      <a href="#contact" class="btn-primary">Get in Touch &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter" id="contact">
+  <p class="section-label">Stay Connected</p>
+  <h2 class="section-title">Join the Mailing List</h2>
+  <div class="section-rule" style="margin: 1rem auto 1.5rem;"></div>
+  <p>Get the latest poems, matchday blogs and rising star profiles delivered directly to your inbox. No noise, just football turned into words.</p>
+  <div class="newsletter-form">
+    <input type="email" placeholder="Your email address"/>
+    <button type="button">Subscribe</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">When Football Becomes <span>Poetry</span></div>
+  <p>&copy; 2025 Noah Mbolokele. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="#">Instagram</a>
+    <a href="#">Facebook</a>
+    <a href="mailto:Noahmbolokele@hotmail.com">Email</a>
+  </div>
+</footer>
+
+</body>
+</html>
