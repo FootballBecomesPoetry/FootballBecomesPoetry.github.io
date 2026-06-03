@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -8,17 +9,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
 <script>
-
 const POSTS = [
-
   {
-
     id:"garden-of-eden",title:"Garden of Eden",category:"poetic",date:"2025-09-05",
-
     image:"images/hazard.jpeg",
-
     excerpt:"For most football is a game of passion, aggression, fight and grit, but for one it was more than that: it was a game of joy, an escape from reality.",
-
     content:`For most football is a game of passion, a game of aggression, fight, and grit, but for one it was more than that: it was a game of joy, an escape from reality. Like a child holding a controller, constantly flicking the right-analogue stick to see what magical skill they could produce. For one this magical unrealism was reality, because to him, football was freedom, where he touched the pitch, flowers blossomed, he danced an elegant dance that left onlookers in awe. Adored by both home and away fans alike, those who had the privilege to watch him shine for 90 minutes, were left simply mesmerised, because for those 90-minutes, those who saw football as a game of passion fight and aggression, were set free to enjoy the Garden of Eden.
 
 Eden Hazard had the ability to transform a stadium’s atmosphere, he played with a smile on his face and forced a smile out of even the most hard-headed supporter. The Belgian Wizard who weaved his way so eloquently and effortlessly through defences, found a way to create an often-incomprehensible beautiful art piece from the most blank canvas. He often defied logic or belief; however, such experience became such a common phenomenon, that he made the impossible a normality, a masterpiece that could simply only be described as the Eden Hazard Experience. While exuding an air of nonchalance, and with a low centre of gravity, he did things with a football that were special. This 5ft 9in prince bloomed and his garden flourished. A garden that would one day become known to be, “The Garden of Eden”. Beginning his career in the historically rich French city of Lille, Hazard made a name for himself playing in the French top division. This is where the magician would wave his wand for the first time, guiding Lille to a French league and cup double, winning their first league title in over 60 years. Hazard was subsequently named the Ligue 1 player of the season, becoming the youngest player to receive the award at just 20 years old. However, Lille merely planted the seeds in the soil for what was to follow. This mesmerising spell at boyhood club Lille earned Hazard a move to one of England’s top clubs in Chelsea Football Club, whom of which, following a disappointing season in the premier league, rose to the top of the pile of Europe’s elites, to be crowned champions of Europe for the first time in the clubs history. Hazard announced his move to the Kings of the Kings Road in iconic fashion, tweeting “I will be joining the champions of Europe” on his social media.
@@ -154,9 +149,7 @@ There lies the truth.
 Incompetence in its purest form. Arrogance at its loudest. Ignorance, unmistakable. A group who dismantled a machine that worked, a system built to win, in pursuit of unproven ideals. They have cut away at the foundations piece by piece. Five managers in four years. Stability reduced to a myth.
 
 Chelsea did not need an identity shift. It was imposed anyway.
-
 Chelsea knew how to win. It was deemed the wrong way.
-
 Chelsea held the highest standards. The blueprint was burned.
 
 And so a theme emerges, as devastating as it is undeniable.
@@ -168,263 +161,209 @@ Because the Chelsea that once existed is no more.
 The club that won two Champions Leagues, five Premier Leagues, five FA Cups, two Europa Leagues now feels like a memory rather than a reality. Revival feels distant. The present offers little more than unrest. The meaning of Chelsea Football Club, the gravitas of Stamford Bridge, the pride of the badge all diminished. And the fans are left to carry what remains.
 
 Today, the owners have sacked a manager.
-
 But four years ago, they made a far greater decision.
 
 They began the unravelling of a football club.
 
 The badge still exists.
-
 But what it represents has faded.
-
 What remains is not Chelsea as it was.
-
 Only the shadow of it.`
-
 }
-
 ];
 
 const CAT_LABELS = { poetic:“Poetic Expressions”, general:“General Pieces”, rising:“Rising Stars” };
 
 const GALLERY = [
-
 { src:“images/hazard.jpeg”, caption:“Hazard, Stamford Bridge” },
-
 { src:“images/dembele.jpeg”, caption:“Dembele lifts the Champions League” },
-
 { src:“images/chelsea-squad.jpeg”, caption:“Chelsea FC, UCL 2026” },
-
 { src:“images/estevao.jpeg”, caption:“Estevao, Chelsea FC” },
-
 { src:“images/kerr.jpeg”, caption:“Sam Kerr, 100th Goal” },
-
 { src:“images/chelsea-women.jpeg”, caption:“Chelsea Women celebrate” },
-
 { src:“images/neymar.jpeg”, caption:“Neymar Jr, PSG” },
-
 { src:“images/pogba.jpeg”, caption:“Paul Pogba, Juventus” },
-
 { src:“images/rooney.jpeg”, caption:“Wayne Rooney, Manchester United” },
-
 { src:“images/mourinho.jpeg”, caption:“Jose Mourinho” },
-
 { src:“images/neuer.jpeg”, caption:“Manuel Neuer” },
-
 ];
 
 function getRoute() {
-
 const hash = window.location.hash.replace(”#”,””) || “home”;
-
 if (hash===“home”||hash===””) return {view:“home”};
-
 if (hash.startsWith(“category/”)) return {view:“category”,slug:hash.split(”/”)[1]};
-
 if (hash.startsWith(“post/”)) return {view:“post”,slug:hash.split(”/”)[1]};
-
 if (hash===“gallery”) return {view:“gallery”};
-
 return {view:“home”};
-
 }
-
 function navigate(hash) { window.location.hash=hash; window.scrollTo(0,0); }
-
 function formatDate(str) {
-
 const [y,m,d]=str.split(”-”);
-
 const months=[“Jan”,“Feb”,“Mar”,“Apr”,“May”,“Jun”,“Jul”,“Aug”,“Sep”,“Oct”,“Nov”,“Dec”];
-
 return `${parseInt(d)} ${months[parseInt(m)-1]} ${y}`;
-
 }
-
 function sortedPosts() { return […POSTS].sort((a,b)=>new Date(b.date)-new Date(a.date)); }
 
 function render() {
-
 const route=getRoute();
-
 const app=document.getElementById(“app”);
-
 if (route.view===“home”) app.innerHTML=renderHome();
-
 else if (route.view===“category”) app.innerHTML=renderCategory(route.slug);
-
 else if (route.view===“post”) app.innerHTML=renderPost(route.slug);
-
 else if (route.view===“gallery”) app.innerHTML=renderGallery();
-
 bindEvents();
-
 }
 
 function renderHome() {
-
 const recent=sortedPosts().slice(0,3);
-
 const recentCards=recent.map((p,i)=>` <div class="post-card ${i===0?"large":""}" onclick="navigate('post/${p.id}')" style="cursor:pointer;${p.image?`background-image:linear-gradient(to bottom,rgba(14,12,10,0.3) 0%,rgba(14,12,10,0.85) 60%),url(${p.image});background-size:cover;background-position:center;`:""}"> <div class="post-card-inner"> <p class="post-tag">${CAT_LABELS[p.category]}</p> <h3 class="post-title">${p.title}</h3> <p class="post-excerpt">${p.excerpt}</p> <p class="post-meta">${formatDate(p.date)}</p> </div> </div>`).join(””);
 
 return `
-
 ${renderNav()}
-<section class="hero" id="home">
-<div class="hero-pitch-lines">
-<svg viewBox="0 0 500 800" preserveAspectRatio="none" fill="none" stroke="#b8955a" stroke-width="1.5">
-<rect x="20" y="20" width="460" height="760"/><line x1="20" y1="400" x2="480" y2="400"/>
-<circle cx="250" cy="400" r="80"/><rect x="160" y="20" width="180" height="80"/>
-<rect x="160" y="700" width="180" height="80"/><rect x="200" y="20" width="100" height="40"/>
-<rect x="200" y="740" width="100" height="40"/>
-</svg>
-</div>
-<div class="hero-left">
-<p class="hero-eyebrow">Est. 2024 · Creative Football Writing</p>
-<h1 class="hero-title">When Football<br>Becomes <em>Poetry</em></h1>
-<div class="hero-divider"></div>
-<p class="hero-desc">Capturing the beauty, drama and emotion of the beautiful game through stories, verse and the written word. Football is more than a sport. It is a language.</p>
-<div class="hero-cta">
-<a href="#category/poetic" class="btn-primary">Read the Blog</a>
-<a href="#about" class="btn-secondary" onclick="setTimeout(()=>document.getElementById('about')?.scrollIntoView({behavior:'smooth'}),80);return false;">About Me</a>
-</div>
-</div>
-<div class="hero-right">
-<div class="hero-quote-card">
-<p class="hero-quote-text">"Football is an Art i just write about it"</p>
-<p class="hero-quote-meta">Football Becomes Poetry</p>
-</div>
-</div>
-<div class="hero-scroll-hint"><div class="scroll-line"></div><span>Scroll</span></div>
-</section>
-<div class="marquee-wrap"><div class="marquee-track">
 
+  <section class="hero" id="home">
+    <div class="hero-pitch-lines">
+      <svg viewBox="0 0 500 800" preserveAspectRatio="none" fill="none" stroke="#b8955a" stroke-width="1.5">
+        <rect x="20" y="20" width="460" height="760"/><line x1="20" y1="400" x2="480" y2="400"/>
+        <circle cx="250" cy="400" r="80"/><rect x="160" y="20" width="180" height="80"/>
+        <rect x="160" y="700" width="180" height="80"/><rect x="200" y="20" width="100" height="40"/>
+        <rect x="200" y="740" width="100" height="40"/>
+      </svg>
+    </div>
+    <div class="hero-left">
+      <p class="hero-eyebrow">Est. 2024 · Creative Football Writing</p>
+      <h1 class="hero-title">When Football<br>Becomes <em>Poetry</em></h1>
+      <div class="hero-divider"></div>
+      <p class="hero-desc">Capturing the beauty, drama and emotion of the beautiful game through stories, verse and the written word. Football is more than a sport. It is a language.</p>
+      <div class="hero-cta">
+        <a href="#category/poetic" class="btn-primary">Read the Blog</a>
+        <a href="#about" class="btn-secondary" onclick="setTimeout(()=>document.getElementById('about')?.scrollIntoView({behavior:'smooth'}),80);return false;">About Me</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-quote-card">
+        <p class="hero-quote-text">"Football is an Art i just write about it"</p>
+        <p class="hero-quote-meta">Football Becomes Poetry</p>
+      </div>
+    </div>
+    <div class="hero-scroll-hint"><div class="scroll-line"></div><span>Scroll</span></div>
+  </section>
+
+  <div class="marquee-wrap"><div class="marquee-track">
     ${["Poetic Expressions","Match Day Blogs","Rising Stars","The Beautiful Game","Football Stories","Creative Writing","Matchday Emotion"].map(t=>`<span class="marquee-item">${t}</span>`).join("").repeat(2)}
-</div></div>
-<section class="categories" id="stories">
-<p class="section-label">Explore</p>
-<h2 class="section-title">Our Stories</h2>
-<div class="section-rule"></div>
-<div class="categories-grid">
-<div class="cat-card" onclick="navigate('category/poetic')" style="cursor:pointer;">
-<div class="cat-num">01</div><div class="cat-icon">✍️</div>
-<h3 class="cat-title">Poetic Expressions</h3>
-<p class="cat-desc">Beautifully crafted poetry and verse inspired by the moments, players and emotions that define football at its most sublime.</p>
-<span class="cat-link">Read Poems</span>
-</div>
-<div class="cat-card" onclick="navigate('category/general')" style="cursor:pointer;">
-<div class="cat-num">02</div><div class="cat-icon">📋</div>
-<h3 class="cat-title">General Pieces</h3>
-<p class="cat-desc">Matchday blogs and essays that bring the drama and excitement of the week's fixtures to life through considered, creative prose.</p>
-<span class="cat-link">Read Pieces</span>
-</div>
-<div class="cat-card" onclick="navigate('category/rising')" style="cursor:pointer;">
-<div class="cat-num">03</div><div class="cat-icon">⚡</div>
-<h3 class="cat-title">Rising Stars</h3>
-<p class="cat-desc">Profiles of the next generation: the rising talents and future icons expected to shape the beautiful game for years to come.</p>
-<span class="cat-link">Meet the Stars</span>
-</div>
-</div>
-</section>
-<section class="featured" id="blog">
-<p class="section-label">Latest</p>
-<h2 class="section-title">Recent Writing</h2>
-<div class="section-rule"></div>
-<div class="featured-grid">${recentCards}</div>
-</section>
-<section id="about">
-<div class="about">
-<div class="about-photo">
-<div class="about-photo-frame">
-<img src="images/about.jpeg" alt="Noah" style="width:100%;height:100%;object-fit:cover;display:block;"/>
-</div>
-</div>
-<div class="about-text">
-<p class="section-label">The Author</p>
-<h2 class="section-title">About Me</h2>
-<div class="section-rule"></div>
-<p>Football has always been at the heart of my life. I have experienced the highs and the lows, but I have always been captivated by the drama, skill and emotion the game brings.</p>
-<p>My love for football stretches far beyond any one club or league. It has led me to the most obscure games at the most obscure hours, and I would not have it any other way.</p>
-<p>Alongside football, I have always been drawn to creative writing. There is something magical about turning feelings and experiences into words, and combining both felt completely natural.</p>
-<div class="about-stats">
-<div><div class="stat-val">3</div><div class="stat-label">Categories</div></div>
-<div><div class="stat-val">${POSTS.length}</div><div class="stat-label">Posts</div></div>
-<div><div class="stat-val">∞</div><div class="stat-label">Passion</div></div>
-</div>
-<a href="#contact" class="btn-primary" onclick="setTimeout(()=>document.getElementById('contact')?.scrollIntoView({behavior:'smooth'}),80);return false;">Get in Touch</a>
-</div>
-</div>
-</section>
-<section class="gallery-section" id="gallery-home">
-<p class="section-label">Visual</p>
-<h2 class="section-title">Gallery</h2>
-<div class="section-rule"></div>
-<div class="gallery-grid">
+  </div></div>
 
+  <section class="categories" id="stories">
+    <p class="section-label">Explore</p>
+    <h2 class="section-title">Our Stories</h2>
+    <div class="section-rule"></div>
+    <div class="categories-grid">
+      <div class="cat-card" onclick="navigate('category/poetic')" style="cursor:pointer;">
+        <div class="cat-num">01</div><div class="cat-icon">✍️</div>
+        <h3 class="cat-title">Poetic Expressions</h3>
+        <p class="cat-desc">Beautifully crafted poetry and verse inspired by the moments, players and emotions that define football at its most sublime.</p>
+        <span class="cat-link">Read Poems</span>
+      </div>
+      <div class="cat-card" onclick="navigate('category/general')" style="cursor:pointer;">
+        <div class="cat-num">02</div><div class="cat-icon">📋</div>
+        <h3 class="cat-title">General Pieces</h3>
+        <p class="cat-desc">Matchday blogs and essays that bring the drama and excitement of the week's fixtures to life through considered, creative prose.</p>
+        <span class="cat-link">Read Pieces</span>
+      </div>
+      <div class="cat-card" onclick="navigate('category/rising')" style="cursor:pointer;">
+        <div class="cat-num">03</div><div class="cat-icon">⚡</div>
+        <h3 class="cat-title">Rising Stars</h3>
+        <p class="cat-desc">Profiles of the next generation: the rising talents and future icons expected to shape the beautiful game for years to come.</p>
+        <span class="cat-link">Meet the Stars</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="featured" id="blog">
+    <p class="section-label">Latest</p>
+    <h2 class="section-title">Recent Writing</h2>
+    <div class="section-rule"></div>
+    <div class="featured-grid">${recentCards}</div>
+  </section>
+
+  <section id="about">
+    <div class="about">
+      <div class="about-photo">
+        <div class="about-photo-frame">
+          <img src="images/about.jpeg" alt="Noah" style="width:100%;height:100%;object-fit:cover;display:block;"/>
+        </div>
+      </div>
+      <div class="about-text">
+        <p class="section-label">The Author</p>
+        <h2 class="section-title">About Me</h2>
+        <div class="section-rule"></div>
+        <p>Football has always been at the heart of my life. I have experienced the highs and the lows, but I have always been captivated by the drama, skill and emotion the game brings.</p>
+        <p>My love for football stretches far beyond any one club or league. It has led me to the most obscure games at the most obscure hours, and I would not have it any other way.</p>
+        <p>Alongside football, I have always been drawn to creative writing. There is something magical about turning feelings and experiences into words, and combining both felt completely natural.</p>
+        <div class="about-stats">
+          <div><div class="stat-val">3</div><div class="stat-label">Categories</div></div>
+          <div><div class="stat-val">${POSTS.length}</div><div class="stat-label">Posts</div></div>
+          <div><div class="stat-val">∞</div><div class="stat-label">Passion</div></div>
+        </div>
+        <a href="#contact" class="btn-primary" onclick="setTimeout(()=>document.getElementById('contact')?.scrollIntoView({behavior:'smooth'}),80);return false;">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery-section" id="gallery-home">
+    <p class="section-label">Visual</p>
+    <h2 class="section-title">Gallery</h2>
+    <div class="section-rule"></div>
+    <div class="gallery-grid">
       ${GALLERY.slice(0,6).map(g=>`
-<div class="gallery-thumb" onclick="navigate('gallery')" style="cursor:pointer;">
-<img src="${g.src}" alt="${g.caption}"/>
-<div class="gallery-thumb-overlay"><span>${g.caption}</span></div>
-</div>`).join("")}
-</div>
-<div style="text-align:center;margin-top:2rem;">
-<a href="#gallery" class="btn-primary">View Full Gallery</a>
-</div>
-</section>
-<section class="newsletter" id="contact">
-<p class="section-label">Stay Connected</p>
-<h2 class="section-title">Get in Touch</h2>
-<div class="section-rule" style="margin:1rem auto 1.5rem;"></div>
-<p>For collaborations, feedback or just to talk football, reach out directly.</p>
-<a href="mailto:Noahmbolokele@hotmail.com" class="btn-primary" style="display:inline-flex;margin-top:0.5rem;">Send an Email</a>
-</section>
+        <div class="gallery-thumb" onclick="navigate('gallery')" style="cursor:pointer;">
+          <img src="${g.src}" alt="${g.caption}"/>
+          <div class="gallery-thumb-overlay"><span>${g.caption}</span></div>
+        </div>`).join("")}
+    </div>
+    <div style="text-align:center;margin-top:2rem;">
+      <a href="#gallery" class="btn-primary">View Full Gallery</a>
+    </div>
+  </section>
 
+  <section class="newsletter" id="contact">
+    <p class="section-label">Stay Connected</p>
+    <h2 class="section-title">Get in Touch</h2>
+    <div class="section-rule" style="margin:1rem auto 1.5rem;"></div>
+    <p>For collaborations, feedback or just to talk football, reach out directly.</p>
+    <a href="mailto:Noahmbolokele@hotmail.com" class="btn-primary" style="display:inline-flex;margin-top:0.5rem;">Send an Email</a>
+  </section>
   ${renderFooter()}`;
-
 }
 
 function renderCategory(slug) {
-
 const label=CAT_LABELS[slug]||“Posts”;
-
 const posts=sortedPosts().filter(p=>p.category===slug);
-
 const cards=posts.length===0
-
 ?`<p class="empty-msg">No posts in this category yet.</p>`
-
 :posts.map(p=>` <article class="list-card" onclick="navigate('post/${p.id}')" style="cursor:pointer;"> ${p.image?`<div class="list-card-img"><img src="${p.image}" alt="${p.title}"/></div>`:"" } <div class="list-card-body"> <div class="list-card-meta"><span class="post-tag">${CAT_LABELS[p.category]}</span><span class="list-date">${formatDate(p.date)}</span></div> <h2 class="list-title">${p.title}</h2> <p class="list-excerpt">${p.excerpt}</p> <span class="cat-link">Read More</span> </div> </article>`).join(””);
-
 return `
-
 ${renderNav()}
-<div class="page-header">
-<div class="page-header-inner">
-<a href="#home" class="back-link">← Home</a>
-<p class="section-label" style="margin-top:1rem;">${posts.length} ${posts.length===1?"Post":"Posts"}</p>
-<h1 class="page-title">${label}</h1>
-<div class="section-rule"></div>
-</div>
-</div>
-<div class="list-container">${cards}</div>
 
+  <div class="page-header">
+    <div class="page-header-inner">
+      <a href="#home" class="back-link">← Home</a>
+      <p class="section-label" style="margin-top:1rem;">${posts.length} ${posts.length===1?"Post":"Posts"}</p>
+      <h1 class="page-title">${label}</h1>
+      <div class="section-rule"></div>
+    </div>
+  </div>
+  <div class="list-container">${cards}</div>
   ${renderFooter()}`;
-
 }
 
 function renderPost(slug) {
-
 const post=POSTS.find(p=>p.id===slug);
-
 if (!post) return `${renderNav()}<div style="padding:8rem 4rem;text-align:center;color:#f5f0e8;"><h2>Post not found.</h2></div>${renderFooter()}`;
-
 const paragraphs=post.content.split(”\n\n”).map(p=>`<p>${p.trim()}</p>`).join(””);
-
 const others=sortedPosts().filter(p=>p.id!==slug).slice(0,2);
-
 const moreCards=others.length?` <div class="more-posts"> <p class="section-label">More Reading</p> <h3 class="section-title" style="font-size:1.6rem;color:#f5f0e8;">Keep Reading</h3> <div class="section-rule"></div> <div class="more-grid"> ${others.map(p=>`
 <article class="list-card" onclick="navigate('post/${p.id}')" style="cursor:pointer;">
-
 ${p.image?`<div class="list-card-img"><img src="${p.image}" alt="${p.title}"/></div>`:””}
 <div class="list-card-body">
 <div class="list-card-meta"><span class="post-tag">${CAT_LABELS[p.category]}</span><span class="list-date">${formatDate(p.date)}</span></div>
@@ -432,93 +371,72 @@ ${p.image?`<div class="list-card-img"><img src="${p.image}" alt="${p.title}"/></
 <span class="cat-link">Read More</span>
 </div>
 </article>`).join("")} </div> </div>`:””;
-
 return `
-
 ${renderNav()}
-<div class="post-hero" ${post.image?`style="background-image:linear-gradient(to bottom,rgba(14,12,10,0.55) 0%,rgba(14,12,10,0.92) 70%),url(${post.image});background-size:cover;background-position:center top;"`:``}>
-<div class="post-hero-inner">
-<a href="#category/${post.category}" class="back-link">← ${CAT_LABELS[post.category]}</a>
-<p class="post-tag" style="margin-top:1.2rem;">${CAT_LABELS[post.category]}</p>
-<h1 class="post-hero-title">${post.title}</h1>
-<p class="post-hero-date">${formatDate(post.date)}</p>
-</div>
-</div>
-<div class="post-body">
-<div class="post-content">${paragraphs}</div>
 
+  <div class="post-hero" ${post.image?`style="background-image:linear-gradient(to bottom,rgba(14,12,10,0.55) 0%,rgba(14,12,10,0.92) 70%),url(${post.image});background-size:cover;background-position:center top;"`:``}>
+    <div class="post-hero-inner">
+      <a href="#category/${post.category}" class="back-link">← ${CAT_LABELS[post.category]}</a>
+      <p class="post-tag" style="margin-top:1.2rem;">${CAT_LABELS[post.category]}</p>
+      <h1 class="post-hero-title">${post.title}</h1>
+      <p class="post-hero-date">${formatDate(post.date)}</p>
+    </div>
+  </div>
+  <div class="post-body">
+    <div class="post-content">${paragraphs}</div>
     ${moreCards}
-</div>
-
+  </div>
   ${renderFooter()}`;
-
 }
 
 function renderGallery() {
-
 return `
-
 ${renderNav()}
-<div class="page-header">
-<div class="page-header-inner">
-<a href="#home" class="back-link">← Home</a>
-<p class="section-label" style="margin-top:1rem;">${GALLERY.length} Images</p>
-<h1 class="page-title">Gallery</h1>
-<div class="section-rule"></div>
-</div>
-</div>
-<div class="gallery-full">
-<div class="gallery-masonry">
 
+  <div class="page-header">
+    <div class="page-header-inner">
+      <a href="#home" class="back-link">← Home</a>
+      <p class="section-label" style="margin-top:1rem;">${GALLERY.length} Images</p>
+      <h1 class="page-title">Gallery</h1>
+      <div class="section-rule"></div>
+    </div>
+  </div>
+  <div class="gallery-full">
+    <div class="gallery-masonry">
       ${GALLERY.map((g,i)=>`
-<div class="gallery-item" onclick="openLightbox(${i})">
-<img src="${g.src}" alt="${g.caption}"/>
-<div class="gallery-thumb-overlay"><span>${g.caption}</span></div>
-</div>`).join("")}
-</div>
-</div>
-<div id="lightbox" class="lightbox" onclick="closeLightbox()" style="display:none;">
-<div class="lightbox-inner" onclick="event.stopPropagation()">
-<button class="lb-close" onclick="closeLightbox()">✕</button>
-<button class="lb-prev" onclick="lbNav(-1)">‹</button>
-<img id="lb-img" src="" alt=""/>
-<p id="lb-caption" class="lb-caption"></p>
-<button class="lb-next" onclick="lbNav(1)">›</button>
-</div>
-</div>
-
+        <div class="gallery-item" onclick="openLightbox(${i})">
+          <img src="${g.src}" alt="${g.caption}"/>
+          <div class="gallery-thumb-overlay"><span>${g.caption}</span></div>
+        </div>`).join("")}
+    </div>
+  </div>
+  <div id="lightbox" class="lightbox" onclick="closeLightbox()" style="display:none;">
+    <div class="lightbox-inner" onclick="event.stopPropagation()">
+      <button class="lb-close" onclick="closeLightbox()">✕</button>
+      <button class="lb-prev" onclick="lbNav(-1)">‹</button>
+      <img id="lb-img" src="" alt=""/>
+      <p id="lb-caption" class="lb-caption"></p>
+      <button class="lb-next" onclick="lbNav(1)">›</button>
+    </div>
+  </div>
   ${renderFooter()}`;
-
 }
 
 let lbIndex=0;
-
 function openLightbox(i) {
-
 lbIndex=i;
-
 document.getElementById(“lb-img”).src=GALLERY[i].src;
-
 document.getElementById(“lb-caption”).textContent=GALLERY[i].caption;
-
 document.getElementById(“lightbox”).style.display=“flex”;
-
 }
-
 function closeLightbox() { document.getElementById(“lightbox”).style.display=“none”; }
-
 function lbNav(dir) {
-
 lbIndex=(lbIndex+dir+GALLERY.length)%GALLERY.length;
-
 document.getElementById(“lb-img”).src=GALLERY[lbIndex].src;
-
 document.getElementById(“lb-caption”).textContent=GALLERY[lbIndex].caption;
-
 }
 
 function renderNav() {
-
 return `<nav>
 <a href="#home" class="nav-logo">Football Becomes<br><span>Poetry</span></a>
 <ul class="nav-links">
@@ -528,376 +446,215 @@ return `<nav>
 <li><a href="#category/rising">Rising Stars</a></li>
 <li><a href="#gallery">Gallery</a></li>
 </ul>
-</nav>`;
 
+  </nav>`;
 }
-
 function renderFooter() {
-
   return `<footer>
-<div class="footer-logo">Football Becomes <span>Poetry</span></div>
-<p>© ${new Date().getFullYear()} Noah Mbolokele. All rights reserved.</p>
-<div class="footer-links">
-<a href="https://instagram.com" target="_blank">Instagram</a>
-<a href="mailto:Noahmbolokele@hotmail.com">Email</a>
-</div>
-</footer>`;
-
+    <div class="footer-logo">Football Becomes <span>Poetry</span></div>
+    <p>© ${new Date().getFullYear()} Noah Mbolokele. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="https://instagram.com" target="_blank">Instagram</a>
+      <a href="mailto:Noahmbolokele@hotmail.com">Email</a>
+    </div>
+  </footer>`;
 }
-
 function bindEvents() {
-
   document.querySelectorAll('a[href^="#"]').forEach(a=>{
-
     a.addEventListener("click",()=>setTimeout(render,10));
-
   });
-
 }
-
 window.addEventListener("hashchange",render);
-
 window.addEventListener("DOMContentLoaded",render);
 </script>
 <style>
-
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-
 :root{
-
   --ink:#0e0c0a;--paper:#f5f0e8;--cream:#ede7d5;
-
   --gold:#b8955a;--gold-light:#d4b07a;--grass:#1a3a2a;
-
   --muted:#7a7060;--rule:rgba(14,12,10,0.12);
-
 }
-
 html{scroll-behavior:smooth;background:#0e0c0a;}
-
 body{background:#0e0c0a;color:#f5f0e8;font-family:'Libre Baskerville',Georgia,serif;overflow-x:hidden;}
 
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;background:#0e0c0a;border-bottom:1px solid rgba(184,149,90,0.15);}
-
 .nav-logo{font-family:‘Playfair Display’,serif;font-style:italic;font-size:1.1rem;font-weight:700;color:#f5f0e8;text-decoration:none;letter-spacing:-0.01em;line-height:1.2;}
-
 .nav-logo span{color:var(–gold);}
-
 .nav-links{display:flex;gap:2rem;list-style:none;}
-
 .nav-links a{font-family:‘DM Mono’,monospace;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.45);text-decoration:none;transition:color 0.2s;}
-
 .nav-links a:hover{color:var(–gold-light);}
 
 .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:5rem;position:relative;overflow:hidden;background:#0e0c0a;}
-
 .hero::before{content:’’;position:absolute;inset:0;background:radial-gradient(ellipse at 70% 30%,rgba(184,149,90,0.07) 0%,transparent 60%),radial-gradient(ellipse at 20% 80%,rgba(184,149,90,0.04) 0%,transparent 50%);pointer-events:none;}
-
 .hero-pitch-lines{position:absolute;right:0;top:0;bottom:0;width:50%;opacity:0.12;pointer-events:none;}
-
 .hero-pitch-lines svg{width:100%;height:100%;}
-
 .hero-left{display:flex;flex-direction:column;justify-content:center;padding:4rem 3rem 4rem 4rem;position:relative;z-index:1;}
-
 .hero-eyebrow{font-family:‘DM Mono’,monospace;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(–gold);margin-bottom:1.5rem;animation:fadeUp 0.9s 0.2s ease both;}
-
 .hero-title{font-family:‘Playfair Display’,serif;font-size:clamp(3rem,5vw,5.5rem);font-weight:900;line-height:1.02;letter-spacing:-0.03em;margin-bottom:1rem;color:#f5f0e8;animation:fadeUp 0.9s 0.35s ease both;}
-
 .hero-title em{font-style:italic;color:var(–gold);display:block;}
-
 .hero-divider{width:3rem;height:2px;background:var(–gold);margin:1.8rem 0;animation:fadeUp 0.9s 0.5s ease both;}
-
 .hero-desc{font-size:1.05rem;line-height:1.75;color:rgba(245,240,232,0.65);max-width:38ch;animation:fadeUp 0.9s 0.65s ease both;}
-
 .hero-cta{display:flex;gap:1rem;margin-top:2.5rem;animation:fadeUp 0.9s 0.8s ease both;}
-
 .btn-primary{display:inline-flex;align-items:center;gap:0.5rem;background:var(–gold);color:#0e0c0a;padding:0.85rem 1.8rem;font-family:‘DM Mono’,monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:background 0.2s,transform 0.15s;border:none;cursor:pointer;font-weight:700;}
-
 .btn-primary:hover{background:var(–gold-light);transform:translateY(-1px);}
-
 .btn-secondary{display:inline-flex;align-items:center;gap:0.5rem;border:1px solid rgba(245,240,232,0.3);color:#f5f0e8;padding:0.85rem 1.8rem;font-family:‘DM Mono’,monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:background 0.2s,border-color 0.2s;}
-
 .btn-secondary:hover{background:rgba(255,255,255,0.06);border-color:rgba(245,240,232,0.6);}
-
 .hero-right{display:flex;align-items:center;justify-content:center;padding:4rem 3rem;position:relative;animation:fadeIn 1.2s 0.4s ease both;}
-
 .hero-quote-card{background:rgba(184,149,90,0.08);border:1px solid rgba(184,149,90,0.25);color:#f5f0e8;padding:3rem;max-width:420px;position:relative;}
-
 .hero-quote-card::before{content:‘C’;font-family:‘Playfair Display’,serif;font-size:8rem;line-height:0.7;color:var(–gold);opacity:0.25;position:absolute;top:1.5rem;left:1.5rem;}
-
 .hero-quote-text{font-family:‘Playfair Display’,serif;font-style:italic;font-size:1.25rem;line-height:1.65;position:relative;z-index:1;margin-bottom:1.5rem;color:#f5f0e8;}
-
 .hero-quote-meta{font-family:‘DM Mono’,monospace;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(–gold-light);}
-
 .hero-scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);font-family:‘DM Mono’,monospace;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(245,240,232,0.3);display:flex;flex-direction:column;align-items:center;gap:0.5rem;animation:fadeUp 1s 1.2s ease both;}
-
 .scroll-line{width:1px;height:2rem;background:linear-gradient(to bottom,var(–gold),transparent);animation:scrollPulse 2s infinite;}
 
 .marquee-wrap{background:var(–grass);color:var(–gold-light);padding:0.9rem 0;overflow:hidden;white-space:nowrap;}
-
 .marquee-track{display:inline-flex;animation:marquee 30s linear infinite;}
-
 .marquee-item{font-family:‘DM Mono’,monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;padding:0 2.5rem;}
-
 .marquee-item::after{content:‘C6’;margin-left:2.5rem;color:var(–gold);opacity:0.5;}
 
 section{padding:6rem 4rem;}
-
 .section-label{font-family:‘DM Mono’,monospace;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(–gold);margin-bottom:0.8rem;}
-
 .section-title{font-family:‘Playfair Display’,serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:900;line-height:1.1;letter-spacing:-0.02em;margin-bottom:1rem;color:#f5f0e8;}
-
 .section-rule{width:2.5rem;height:2px;background:var(–gold);margin-bottom:2.5rem;}
 
 .categories{background:#141210;}
-
 .categories-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;}
-
 .cat-card{background:rgba(255,255,255,0.03);border:1px solid rgba(184,149,90,0.1);padding:2.5rem 2rem;transition:transform 0.2s,box-shadow 0.2s,border-color 0.2s;position:relative;overflow:hidden;}
-
 .cat-card::before{content:’’;position:absolute;bottom:0;left:0;right:0;height:2px;background:var(–gold);transform:scaleX(0);transform-origin:left;transition:transform 0.3s ease;}
-
 .cat-card:hover::before{transform:scaleX(1);}
-
 .cat-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,0.3);border-color:rgba(184,149,90,0.3);}
-
 .cat-icon{font-size:2rem;margin-bottom:1.2rem;}
-
 .cat-num{font-family:‘Playfair Display’,serif;font-style:italic;font-size:4rem;font-weight:900;color:rgba(184,149,90,0.08);position:absolute;top:1rem;right:1.5rem;line-height:1;pointer-events:none;}
-
 .cat-title{font-family:‘Playfair Display’,serif;font-size:1.35rem;font-weight:700;margin-bottom:0.8rem;color:#f5f0e8;}
-
 .cat-desc{font-size:0.88rem;line-height:1.65;color:rgba(245,240,232,0.5);}
-
 .cat-link{display:inline-flex;align-items:center;gap:0.4rem;font-family:‘DM Mono’,monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(–gold-light);text-decoration:none;margin-top:1.5rem;border-bottom:1px solid rgba(184,149,90,0.4);padding-bottom:1px;transition:color 0.2s,border-color 0.2s;cursor:pointer;}
-
 .cat-link:hover{color:var(–gold);border-color:var(–gold);}
 
 .featured{background:#0a0908;}
-
 .featured .section-title,.featured .section-rule{}
-
 .featured-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:1.5rem;margin-top:3rem;}
-
 .post-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);padding:0;transition:transform 0.25s,border-color 0.25s;overflow:hidden;min-height:260px;display:flex;flex-direction:column;justify-content:flex-end;}
-
 .post-card:hover{transform:translateY(-3px);border-color:rgba(184,149,90,0.3);}
-
 .post-card-inner{padding:2rem;}
-
 .post-card.large{min-height:340px;}
-
 .post-tag{font-family:‘DM Mono’,monospace;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(–gold-light);margin-bottom:1rem;}
-
 .post-title{font-family:‘Playfair Display’,serif;font-weight:700;line-height:1.3;margin-bottom:0.8rem;color:#f5f0e8;}
-
 .post-card.large .post-title{font-size:1.5rem;}
-
 .post-card:not(.large) .post-title{font-size:1.1rem;}
-
 .post-excerpt{font-size:0.88rem;line-height:1.6;color:rgba(245,240,232,0.65);margin-bottom:1.2rem;}
-
 .post-meta{font-family:‘DM Mono’,monospace;font-size:0.62rem;letter-spacing:0.08em;color:rgba(245,240,232,0.4);}
 
 .about{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
-
 .about-photo{position:relative;}
-
 .about-photo-frame{background:var(–ink);aspect-ratio:3/4;max-width:380px;position:relative;overflow:hidden;}
-
 .about-text p{font-size:1rem;line-height:1.8;color:rgba(245,240,232,0.65);margin-bottom:1.2rem;}
-
 .about-stats{display:flex;gap:2.5rem;margin:2rem 0;padding:2rem 0;border-top:1px solid rgba(184,149,90,0.15);border-bottom:1px solid rgba(184,149,90,0.15);}
-
 .stat-val{font-family:‘Playfair Display’,serif;font-size:2rem;font-weight:900;color:#f5f0e8;}
-
 .stat-label{font-family:‘DM Mono’,monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.4);}
 
 .gallery-section{background:#141210;}
-
 .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem;}
-
 .gallery-thumb{position:relative;overflow:hidden;aspect-ratio:1;cursor:pointer;}
-
 .gallery-thumb img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s;filter:grayscale(20%);}
-
 .gallery-thumb:hover img{transform:scale(1.06);filter:grayscale(0%);}
-
 .gallery-thumb-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(14,12,10,0.85) 0%,transparent 50%);display:flex;align-items:flex-end;padding:1rem;opacity:0;transition:opacity 0.3s;}
-
 .gallery-thumb:hover .gallery-thumb-overlay{opacity:1;}
-
 .gallery-thumb-overlay span{font-family:‘DM Mono’,monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(–gold-light);}
 
 .gallery-full{padding:3rem 4rem 6rem;}
-
 .gallery-masonry{columns:3;gap:1rem;}
-
 .gallery-item{break-inside:avoid;margin-bottom:1rem;position:relative;overflow:hidden;cursor:pointer;}
-
 .gallery-item img{width:100%;display:block;transition:transform 0.4s;filter:grayscale(20%);}
-
 .gallery-item:hover img{transform:scale(1.04);filter:grayscale(0%);}
-
 .gallery-item .gallery-thumb-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(14,12,10,0.85) 0%,transparent 60%);display:flex;align-items:flex-end;padding:1rem;opacity:0;transition:opacity 0.3s;}
-
 .gallery-item:hover .gallery-thumb-overlay{opacity:1;}
 
 .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:999;display:flex;align-items:center;justify-content:center;}
-
 .lightbox-inner{position:relative;max-width:90vw;max-height:90vh;display:flex;flex-direction:column;align-items:center;}
-
 .lightbox-inner img{max-width:80vw;max-height:75vh;object-fit:contain;}
-
 .lb-caption{font-family:‘DM Mono’,monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(–gold-light);margin-top:1rem;}
-
 .lb-close{position:absolute;top:-2.5rem;right:0;background:none;border:none;color:#f5f0e8;font-size:1.5rem;cursor:pointer;opacity:0.7;}
-
 .lb-close:hover{opacity:1;}
-
 .lb-prev,.lb-next{position:fixed;top:50%;background:none;border:none;color:#f5f0e8;font-size:3rem;cursor:pointer;opacity:0.5;transition:opacity 0.2s;padding:1rem;}
-
 .lb-prev{left:1rem;transform:translateY(-50%);}
-
 .lb-next{right:1rem;transform:translateY(-50%);}
-
 .lb-prev:hover,.lb-next:hover{opacity:1;}
 
 .newsletter{background:var(–gold);color:var(–ink);text-align:center;padding:5rem 4rem;}
-
 .newsletter .section-label{color:var(–ink);opacity:0.6;}
-
 .newsletter .section-title{color:var(–ink);}
-
 .newsletter p{font-size:1rem;line-height:1.7;max-width:48ch;margin:0 auto 2.5rem;color:rgba(14,12,10,0.75);}
 
 footer{background:#080706;color:rgba(245,240,232,0.5);padding:3rem 4rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(184,149,90,0.1);}
-
 .footer-logo{font-family:‘Playfair Display’,serif;font-style:italic;font-size:1rem;color:#f5f0e8;}
-
 .footer-logo span{color:var(–gold);}
-
 footer p{font-family:‘DM Mono’,monospace;font-size:0.65rem;letter-spacing:0.08em;}
-
 .footer-links{display:flex;gap:1.5rem;}
-
 .footer-links a{font-family:‘DM Mono’,monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(245,240,232,0.45);text-decoration:none;transition:color 0.2s;}
-
 .footer-links a:hover{color:var(–gold-light);}
 
 .page-header{background:#080706;color:#f5f0e8;padding:8rem 4rem 4rem;border-bottom:1px solid rgba(184,149,90,0.1);}
-
 .page-header-inner{max-width:800px;}
-
 .page-title{font-family:‘Playfair Display’,serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:900;line-height:1.05;letter-spacing:-0.03em;color:#f5f0e8;}
-
 .back-link{font-family:‘DM Mono’,monospace;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(–gold-light);text-decoration:none;transition:color 0.2s;}
-
 .back-link:hover{color:#f5f0e8;}
 
 .list-container{max-width:900px;margin:0 auto;padding:3rem 4rem 6rem;}
-
 .list-card{display:flex;gap:1.5rem;padding:2rem 0;border-bottom:1px solid rgba(184,149,90,0.1);transition:padding-left 0.2s;cursor:pointer;}
-
 .list-card:last-child{border-bottom:none;}
-
 .list-card:hover{padding-left:0.5rem;}
-
 .list-card-img{flex-shrink:0;width:120px;height:120px;overflow:hidden;}
-
 .list-card-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(30%);transition:filter 0.3s;}
-
 .list-card:hover .list-card-img img{filter:grayscale(0%);}
-
 .list-card-body{flex:1;}
-
 .list-card-meta{display:flex;align-items:center;gap:1.2rem;margin-bottom:0.8rem;}
-
 .list-card .post-tag{margin-bottom:0;}
-
 .list-date{font-family:‘DM Mono’,monospace;font-size:0.62rem;letter-spacing:0.08em;color:rgba(245,240,232,0.35);}
-
 .list-title{font-family:‘Playfair Display’,serif;font-size:1.4rem;font-weight:700;line-height:1.25;margin-bottom:0.6rem;color:#f5f0e8;}
-
 .list-excerpt{font-size:0.9rem;line-height:1.6;color:rgba(245,240,232,0.5);margin-bottom:0.8rem;}
-
 .empty-msg{font-family:‘DM Mono’,monospace;font-size:0.8rem;color:rgba(245,240,232,0.4);padding:3rem 0;}
 
 .post-hero{background:#080706;color:#f5f0e8;padding:8rem 4rem 5rem;min-height:50vh;display:flex;align-items:flex-end;}
-
 .post-hero-inner{max-width:760px;}
-
 .post-hero-title{font-family:‘Playfair Display’,serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:900;line-height:1.1;letter-spacing:-0.025em;color:#f5f0e8;margin:1rem 0 0.8rem;}
-
 .post-hero-date{font-family:‘DM Mono’,monospace;font-size:0.68rem;letter-spacing:0.12em;color:var(–gold-light);}
-
 .post-body{max-width:760px;margin:0 auto;padding:4rem 4rem 6rem;}
-
 .post-content p{font-size:1.05rem;line-height:1.9;color:rgba(245,240,232,0.85);margin-bottom:1.6rem;}
-
 .more-posts{margin-top:5rem;padding-top:4rem;border-top:1px solid rgba(184,149,90,0.15);}
-
 .more-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2rem;}
-
 .more-grid .list-title{font-size:1.1rem;}
 
 @keyframes fadeDown{from{opacity:0;transform:translateY(-12px);}to{opacity:1;transform:translateY(0);}}
-
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
-
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
-
 @keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-
 @keyframes scrollPulse{0%,100%{opacity:1;transform:scaleY(1);}50%{opacity:0.4;transform:scaleY(0.6);}}
 
 @media(max-width:900px){
-
 nav{padding:1rem 1.5rem;}
-
 .nav-links{display:none;}
-
 .hero{grid-template-columns:1fr;min-height:auto;}
-
 .hero-left{padding:6rem 1.5rem 3rem;}
-
 .hero-right{padding:2rem 1.5rem 4rem;}
-
 section{padding:4rem 1.5rem;}
-
 .categories-grid{grid-template-columns:1fr;}
-
 .about{grid-template-columns:1fr;gap:2.5rem;}
-
 .about-photo-frame{max-width:100%;aspect-ratio:4/3;}
-
 .featured-grid{grid-template-columns:1fr;}
-
 footer{flex-direction:column;gap:1rem;text-align:center;}
-
 .page-header{padding:7rem 1.5rem 3rem;}
-
 .list-container{padding:2rem 1.5rem 4rem;}
-
 .list-card{flex-direction:column;}
-
 .list-card-img{width:100%;height:200px;}
-
 .post-hero{padding:7rem 1.5rem 3rem;}
-
 .post-body{padding:2rem 1.5rem 4rem;}
-
 .more-grid{grid-template-columns:1fr;}
-
 .gallery-grid{grid-template-columns:repeat(2,1fr);}
-
 .gallery-masonry{columns:2;}
-
 .gallery-full{padding:2rem 1.5rem 4rem;}
-
 }
 </style>
+
 </head>
 <body><div id="app"></div></body>
 </html>
- 
